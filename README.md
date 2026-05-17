@@ -93,10 +93,16 @@ python baseline_benchmark.py --voynich data/takahashi_eva.txt --corpora-dir data
 python control_family_benchmark.py --voynich data/takahashi_eva.txt --manifest data/baselines/manifest_template.csv --csv-out artifacts/control_family_benchmark.csv --json-out artifacts/control_family_benchmark.json
 
 # Generate null-calibrated lag spectra across Voynich + control families
-python lag_spectrum_compare.py --voynich data/takahashi_eva.txt --manifest data/baselines/manifest_template.csv --max-lag 60 --target-lags 5 6 12 13 --permutations 200 --store-null-targets --csv-out artifacts/lag_spectrum_compare.csv --json-out artifacts/lag_spectrum_compare.json
+python lag_spectrum_compare.py --voynich data/takahashi_eva.txt --manifest data/baselines/manifest_template.csv --max-lag 60 --target-lags 5 6 12 13 --permutations 200 --store-null-targets --store-null-profiles --csv-out artifacts/lag_spectrum_compare.csv --json-out artifacts/lag_spectrum_compare.json
 
 # Render spectral visuals and null-distribution histograms (requires matplotlib)
 python plot_lag_spectra.py --csv artifacts/lag_spectrum_compare.csv --json artifacts/lag_spectrum_compare.json --outdir artifacts/plots
+
+# Output includes:
+# - lag_spectra_comparative.png (observed spectra vs controls)
+# - lag_spectra_family_aggregate.png (family means with 95% confidence bands)
+# - lag_spectra_periodogram.png (frequency-domain spectral density; Voynich null PSD band)
+# - voynich_null_hist_lag*.png (target-lag null histograms)
 
 # Stress-test periodicity claims across tokenization variants and shuffled nulls
 python periodicity_robustness.py --input data/takahashi_eva.txt --target-word-distance 13 --target-char-lags 5 6 --permutations 400 --json-out artifacts/periodicity_robustness.json

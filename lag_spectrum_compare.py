@@ -31,6 +31,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--target-lags", nargs="+", type=int, default=[5, 6, 12, 13], help="Lags to summarize")
     parser.add_argument("--permutations", type=int, default=200, help="Null permutations per corpus")
     parser.add_argument(
+        "--store-null-profiles",
+        action="store_true",
+        help="Store full null lag profiles per corpus in JSON (larger file; needed for PSD null confidence bands)",
+    )
+    parser.add_argument(
         "--store-null-targets",
         action="store_true",
         help="Store null sample arrays for target lags in JSON (larger file, enables histogram plots)",
@@ -148,10 +153,13 @@ def main() -> int:
 
         # Null distributions for each lag
         null_by_lag = {lag: [] for lag in range(1, args.max_lag + 1)}
+        null_profiles = []
         for _ in range(args.permutations):
             s = chars[:]
             random.shuffle(s)
             prof = lag_profile(s, args.max_lag)
+            if args.store_null_profiles:
+                null_profiles.append([prof[lag] for lag in range(1, args.max_lag + 1)])
             for lag, v in prof.items():
                 null_by_lag[lag].append(v)
 
@@ -205,8 +213,10 @@ def main() -> int:
                 "family": c["family"],
                 "path": c["path"],
                 "char_count": len(chars),
+                "observed_profile": [obs[lag] for lag in range(1, args.max_lag + 1)],
                 "target_lag_stats": target_stats,
                 "target_lag_null_samples": target_null_samples if args.store_null_targets else None,
+                "null_profiles": null_profiles if args.store_null_profiles else None,
                 "peak_lag": max(obs, key=lambda k: obs[k]),
                 "peak_value": max(obs.values()) if obs else 0.0,
             }
