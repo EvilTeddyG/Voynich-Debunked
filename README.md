@@ -25,6 +25,15 @@ Current strongest empirical convergence is the joint pattern of:
 2. Strong line-position effects.
 3. Synthetic model reproducibility in the same anomaly region.
 
+Astronomy-layer defensible claim boundary (current scaffold stage):
+1. Under blinded comparative evaluation, geometric scoring yields a structured ranking surface with a narrow early-1430s best-fit basin.
+2. This supports constrained historical dependence inference, not authorship identification and not manuscript-level historical confirmation.
+3. A coherent basin with nearby competitors is expected and preferable to an artificially perfect single-candidate lock.
+
+Hybrid-model working interpretation:
+1. The current evidence is compatible with an engineered hybrid artifact: technically structured diagram layers plus constrained procedural pseudo-text behavior.
+2. This is a plausibility model for continued testing, not a fixed narrative and not a solved-authorship claim.
+
 ---
 
 ## 📊 The Core Cryptanalytic Proofs
@@ -163,6 +172,7 @@ The following items are required before escalating from "strong hypothesis packa
   and known pseudo-script traditions.
 5. Cross-validation regime: train on subset folios, evaluate predictive fit on held-out folios. (Scaffold added in `cross_validate_markov.py`.)
 6. Null-model stress tests for the 13-word and 5-6-character peaks under tokenization/transcription variants and anti-selection controls. (Initial permutation test added; robustness suite still pending.)
+7. Preregistered blind-ranking discipline for astronomy: freeze scoring rule, publish full ranked surface, freeze interpretation notes, then unblind.
 
 Notes on current vulnerability profile:
 1. The entropy argument is the central claim axis.

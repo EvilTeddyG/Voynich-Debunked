@@ -28,6 +28,13 @@ In a high-value manuscript market, a successful fabrication would likely avoid r
 
 This is a generic deception mechanism: mix verifiable structure with non-verifiable claims.
 
+Hybrid coherence logic:
+1. If the manuscript were entirely fabricated with no technical substrate, the astronomy-layer geometric structure is harder to explain.
+2. If it were entirely high-information semantic text, the observed entropy collapse and procedural repetition are harder to explain.
+3. A hybrid model resolves both tensions by allowing authentic technical structure embedded within constrained pseudo-semantic masking.
+
+At this stage, this supports plausibility, not confirmation of specific motives or actors.
+
 ## 2. Candidate Event Anchor: 1433-06-17 Eclipse
 
 Given vellum dating constraints, a major eclipse in-range is a reasonable event class to test as an anchor candidate. The 1433-06-17 eclipse is therefore treated as a concrete test case, not a proven source.
@@ -70,6 +77,12 @@ If this hypothesis is discussed publicly, the strongest defensible wording is:
 What should be avoided at current evidence level:
 - Treating 1433 as proven unique source event.
 - Treating any single lag (for example, 13) as privileged without full distribution context.
+
+Strongest scientifically defensible formulation at current maturity:
+- The manuscript may represent an engineered hybrid artifact combining authentic scientific or astronomical source structures with constrained procedural pseudo-text, potentially created within a technically literate Renaissance workshop or scholarly environment.
+
+Scope limit:
+- This does not identify a specific author, reconstruct personal intent, or prove direct production history.
 
 ## 7. Suggested Next Analyses
 

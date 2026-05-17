@@ -49,6 +49,13 @@ Primary question:
   - strong support
   - weak support
   - non-support
+- Predefine interpretation limits:
+  - allowed claim level: constrained dependence inference
+  - disallowed claim level: authorship attribution, definitive production-date proof
+- Predefine ranking-surface checks:
+  - near-tie count threshold window
+  - minimum acceptable best-vs-runner-up gap
+  - expected behavior under candidate-table expansion
 
 ## Sensitivity Plan
 - Weight perturbation plan:
@@ -60,3 +67,4 @@ Primary question:
 - Publish false-match diagnostics.
 - Publish failures and near-misses.
 - Publish final unblinding key after freeze criteria met.
+- Freeze interpretation notes before unblinding and publish the frozen note with the final report.

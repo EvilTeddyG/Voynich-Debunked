@@ -44,6 +44,22 @@ Blind-mode scaffold output:
 - Same score/null metrics as non-blind run (as expected on same template inputs)
 - Unblinding key is emitted separately to [artifacts/astronomy_blind_key.json](../../artifacts/astronomy_blind_key.json)
 
+## Current Defensible Astronomy Statement
+
+At current maturity, the strongest defensible statement is:
+
+"The astronomical folios exhibit nonrandom geometric dependence on a narrow early-15th-century eclipse candidate basin under blinded comparative evaluation."
+
+Interpretation guardrails:
+- The key result is coherent ranking-surface behavior under constraints, not a claim that one date is historically proven.
+- Nearby competitors are expected in a real historical inference problem; moderate separation is more credible than perfect uniqueness.
+- The method addresses constrained dependence inference, not freeform visual matching and not authorship attribution.
+
+Observed scaffold ranking shape in this run:
+- Top unblinded candidate: 1433-06-17 (`ecl_1433_06_17`)
+- Nearby competitor cluster includes early-1430s candidates (notably 1436 and 1428 in the current table)
+- Fit quality degrades substantially for more distant candidates in the tested set
+
 ## Interpretation Discipline
 
 Because template values were intentionally seeded near the 1433 candidate, this ranking is expected and should not be treated as independent confirmation.
