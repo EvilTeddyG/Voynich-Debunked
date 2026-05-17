@@ -111,6 +111,14 @@ def percentile(sorted_vals: list[float], p: float) -> float:
     return sorted_vals[idx]
 
 
+def stddev(vals: list[float]) -> float:
+    if len(vals) < 2:
+        return 0.0
+    m = mean(vals)
+    var = sum((x - m) ** 2 for x in vals) / (len(vals) - 1)
+    return math.sqrt(var)
+
+
 def main() -> int:
     args = parse_args()
     random.seed(args.seed)
@@ -151,6 +159,22 @@ def main() -> int:
         for lag, scores in lag_perm.items()
     }
 
+    d13_mean = mean(d13_perm)
+    d13_sd = stddev([float(x) for x in d13_perm])
+    d13_z = ((observed_d13 - d13_mean) / d13_sd) if d13_sd > 0 else 0.0
+
+    lag_stats = {}
+    for lag, scores in lag_perm.items():
+        s_mean = mean(scores)
+        s_sd = stddev(scores)
+        lag_stats[lag] = {
+            "mean": s_mean,
+            "sd": s_sd,
+            "z": ((observed_lag_scores[lag] - s_mean) / s_sd) if s_sd > 0 else 0.0,
+            "q025": percentile(sorted(scores), 2.5),
+            "q975": percentile(sorted(scores), 97.5),
+        }
+
     print("=" * 80)
     print("SIGNIFICANCE TEST SUMMARY")
     print("=" * 80)
@@ -164,13 +188,19 @@ def main() -> int:
     print()
     print(f"Distance-{args.target_distance} phrase repeat permutation test")
     print(f"  observed count: {observed_d13}")
-    print(f"  null mean: {mean(d13_perm):.2f}")
+    print(f"  null mean: {d13_mean:.2f}")
+    print(f"  null 95% range: [{percentile(sorted([float(x) for x in d13_perm]), 2.5):.2f}, {percentile(sorted([float(x) for x in d13_perm]), 97.5):.2f}]")
+    print(f"  effect z-score: {d13_z:+.4f}")
     print(f"  p-value (>= observed): {d13_p:.6f}")
     print()
     print("Lag autocorrelation permutation tests")
     for lag in args.lags:
         print(
-            f"  lag {lag}: observed={observed_lag_scores[lag]:+.6f}, null_mean={mean(lag_perm[lag]):+.6f}, p={lag_p[lag]:.6f}"
+            "  lag "
+            f"{lag}: observed={observed_lag_scores[lag]:+.6f}, "
+            f"null_mean={lag_stats[lag]['mean']:+.6f}, "
+            f"null_95=[{lag_stats[lag]['q025']:+.6f}, {lag_stats[lag]['q975']:+.6f}], "
+            f"z={lag_stats[lag]['z']:+.4f}, p={lag_p[lag]:.6f}"
         )
     print("=" * 80)
 
@@ -187,14 +217,22 @@ def main() -> int:
             "ngram_len": args.min_ngram,
             "target_distance": args.target_distance,
             "observed": observed_d13,
-            "null_mean": mean(d13_perm),
+            "null_mean": d13_mean,
+            "null_sd": d13_sd,
+            "null_q025": percentile(sorted([float(x) for x in d13_perm]), 2.5),
+            "null_q975": percentile(sorted([float(x) for x in d13_perm]), 97.5),
+            "z_score": d13_z,
             "p_value_ge": d13_p,
             "replicates": args.permutations,
         },
         "lag_tests": {
             str(lag): {
                 "observed": observed_lag_scores[lag],
-                "null_mean": mean(lag_perm[lag]),
+                "null_mean": lag_stats[lag]["mean"],
+                "null_sd": lag_stats[lag]["sd"],
+                "null_q025": lag_stats[lag]["q025"],
+                "null_q975": lag_stats[lag]["q975"],
+                "z_score": lag_stats[lag]["z"],
                 "p_value_ge": lag_p[lag],
             }
             for lag in args.lags

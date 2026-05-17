@@ -23,6 +23,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--holdout-frac", type=float, default=0.2, help="Fraction of folios held out")
     parser.add_argument("--seed", type=int, default=42, help="RNG seed")
     parser.add_argument("--alpha", type=float, default=0.5, help="Laplace smoothing alpha")
+    parser.add_argument("--repeats", type=int, default=20, help="Number of repeated random holdouts")
     parser.add_argument("--json-out", default=None, help="Optional JSON output path")
     return parser.parse_args()
 
@@ -99,6 +100,13 @@ def cross_entropy_bigram(test_chars: list[str], p_bi, vocab: list[str], unk_prob
     return loss / n if n else 0.0
 
 
+def percentile(sorted_vals: list[float], p: float) -> float:
+    if not sorted_vals:
+        return 0.0
+    idx = max(0, min(len(sorted_vals) - 1, int(round((p / 100.0) * (len(sorted_vals) - 1)))))
+    return sorted_vals[idx]
+
+
 def main() -> int:
     args = parse_args()
     random.seed(args.seed)
@@ -110,31 +118,73 @@ def main() -> int:
         return 1
 
     holdout_n = max(1, int(round(len(folios) * args.holdout_frac)))
-    holdout = set(random.sample(folios, holdout_n))
-    train = [f for f in folios if f not in holdout]
 
-    train_chars = [c for f in train for c in by_folio[f]]
-    test_chars = [c for f in holdout for c in by_folio[f]]
+    run_rows = []
+    ce_uni_list = []
+    ce_bi_list = []
+    delta_list = []
 
-    p_uni, p_bi, vocab = build_models(train_chars, args.alpha)
-    v = max(1, len(vocab))
-    unk_prob = 1.0 / (len(train_chars) + args.alpha * v)
+    for r in range(args.repeats):
+        holdout = set(random.sample(folios, holdout_n))
+        train = [f for f in folios if f not in holdout]
 
-    ce_uni = cross_entropy_unigram(test_chars, p_uni, unk_prob)
-    ce_bi = cross_entropy_bigram(test_chars, p_bi, vocab, unk_prob)
-    ppl_uni = 2 ** ce_uni if ce_uni > 0 else 1.0
-    ppl_bi = 2 ** ce_bi if ce_bi > 0 else 1.0
+        train_chars = [c for f in train for c in by_folio[f]]
+        test_chars = [c for f in holdout for c in by_folio[f]]
+
+        p_uni, p_bi, vocab = build_models(train_chars, args.alpha)
+        v = max(1, len(vocab))
+        unk_prob = 1.0 / (len(train_chars) + args.alpha * v)
+
+        ce_uni = cross_entropy_unigram(test_chars, p_uni, unk_prob)
+        ce_bi = cross_entropy_bigram(test_chars, p_bi, vocab, unk_prob)
+        delta = ce_uni - ce_bi
+
+        ce_uni_list.append(ce_uni)
+        ce_bi_list.append(ce_bi)
+        delta_list.append(delta)
+
+        run_rows.append(
+            {
+                "run": r + 1,
+                "train_folios": train,
+                "holdout_folios": sorted(holdout),
+                "train_chars": len(train_chars),
+                "holdout_chars": len(test_chars),
+                "cross_entropy_unigram": ce_uni,
+                "cross_entropy_bigram": ce_bi,
+                "improvement_bits_per_char": delta,
+            }
+        )
+
+    ce_uni_mean = sum(ce_uni_list) / len(ce_uni_list)
+    ce_bi_mean = sum(ce_bi_list) / len(ce_bi_list)
+    delta_mean = sum(delta_list) / len(delta_list)
+
+    ce_uni_sorted = sorted(ce_uni_list)
+    ce_bi_sorted = sorted(ce_bi_list)
+    delta_sorted = sorted(delta_list)
 
     print("=" * 80)
     print("FOLIO HOLD-OUT CROSS-VALIDATION")
     print("=" * 80)
     print(f"Input: {args.input}")
-    print(f"Folios total: {len(folios)} | train: {len(train)} | holdout: {len(holdout)}")
-    print(f"Train chars: {len(train_chars):,} | Holdout chars: {len(test_chars):,}")
+    print(f"Folios total: {len(folios)} | holdout per run: {holdout_n} | repeats: {args.repeats}")
     print()
-    print(f"Unigram holdout cross-entropy: {ce_uni:.4f} bits/char  | perplexity: {ppl_uni:.4f}")
-    print(f"Bigram  holdout cross-entropy: {ce_bi:.4f} bits/char  | perplexity: {ppl_bi:.4f}")
-    print(f"Improvement (uni - bi): {ce_uni - ce_bi:+.4f} bits/char")
+    print(
+        "Unigram holdout cross-entropy: "
+        f"mean={ce_uni_mean:.4f}, 95% range=[{percentile(ce_uni_sorted, 2.5):.4f}, {percentile(ce_uni_sorted, 97.5):.4f}]"
+    )
+    print(
+        "Bigram  holdout cross-entropy: "
+        f"mean={ce_bi_mean:.4f}, 95% range=[{percentile(ce_bi_sorted, 2.5):.4f}, {percentile(ce_bi_sorted, 97.5):.4f}]"
+    )
+    print(
+        "Improvement (uni - bi): "
+        f"mean={delta_mean:+.4f} bits/char, 95% range=[{percentile(delta_sorted, 2.5):+.4f}, {percentile(delta_sorted, 97.5):+.4f}]"
+    )
+    ppl_uni = 2 ** ce_uni_mean if ce_uni_mean > 0 else 1.0
+    ppl_bi = 2 ** ce_bi_mean if ce_bi_mean > 0 else 1.0
+    print(f"Perplexity (means): unigram={ppl_uni:.4f}, bigram={ppl_bi:.4f}")
     print("=" * 80)
 
     results = {
@@ -142,16 +192,23 @@ def main() -> int:
         "seed": args.seed,
         "alpha": args.alpha,
         "folios_total": len(folios),
-        "folios_train": train,
-        "folios_holdout": sorted(holdout),
-        "char_counts": {"train": len(train_chars), "holdout": len(test_chars)},
+        "repeats": args.repeats,
+        "holdout_frac": args.holdout_frac,
+        "holdout_per_run": holdout_n,
         "metrics": {
-            "cross_entropy_unigram": ce_uni,
-            "cross_entropy_bigram": ce_bi,
+            "cross_entropy_unigram_mean": ce_uni_mean,
+            "cross_entropy_unigram_q025": percentile(ce_uni_sorted, 2.5),
+            "cross_entropy_unigram_q975": percentile(ce_uni_sorted, 97.5),
+            "cross_entropy_bigram_mean": ce_bi_mean,
+            "cross_entropy_bigram_q025": percentile(ce_bi_sorted, 2.5),
+            "cross_entropy_bigram_q975": percentile(ce_bi_sorted, 97.5),
             "perplexity_unigram": ppl_uni,
             "perplexity_bigram": ppl_bi,
-            "improvement_bits_per_char": ce_uni - ce_bi,
+            "improvement_bits_per_char_mean": delta_mean,
+            "improvement_bits_per_char_q025": percentile(delta_sorted, 2.5),
+            "improvement_bits_per_char_q975": percentile(delta_sorted, 97.5),
         },
+        "runs": run_rows,
     }
 
     if args.json_out:

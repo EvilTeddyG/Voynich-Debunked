@@ -84,7 +84,10 @@ python voynich_simulator.py --seed 42 --lines 3000 --output synthetic_voynich_ma
 python significance_tests.py --input data/takahashi_eva.txt --permutations 300 --bootstrap 300 --json-out artifacts/significance.json
 
 # Hold-out folio cross-validation (bigram model scaffold)
-python cross_validate_markov.py --input data/takahashi_eva.txt --holdout-frac 0.2 --seed 42 --json-out artifacts/cross_validation.json
+python cross_validate_markov.py --input data/takahashi_eva.txt --holdout-frac 0.2 --repeats 20 --seed 42 --json-out artifacts/cross_validation.json
+
+# Compare Voynich metrics against pseudo-script / medieval control corpora
+python baseline_benchmark.py --voynich data/takahashi_eva.txt --corpora-dir data/baselines --csv-out artifacts/baseline_benchmark.csv --json-out artifacts/baseline_benchmark.json
 ```
 
 ---
@@ -122,6 +125,11 @@ The following items are required before escalating from "strong hypothesis packa
 5. Cross-validation regime: train on subset folios, evaluate predictive fit on held-out folios. (Scaffold added in `cross_validate_markov.py`.)
 6. Null-model stress tests for the 13-word and 5-6-character peaks under tokenization/transcription variants and anti-selection controls. (Initial permutation test added; robustness suite still pending.)
 
+Notes on current vulnerability profile:
+1. The entropy argument is the central claim axis.
+2. Positional binding is currently the hardest signal to explain under unconstrained semantic models.
+3. The 13-word periodicity claim remains the most statistically attackable component until full robustness diagnostics are complete (spectral views, variant tokenization checks, and false-positive characterization).
+
 To type-check the proofs locally:
 
 ```bash
@@ -141,7 +149,8 @@ lake build
 *   [`stencil_periodicity.py`](stencil_periodicity.py) — The spatial periodicity engine extracting the 13-word offsets, 6-character lag spikes, and 7% vertical column alignment rate.
 *   [`voynich_simulator.py`](voynich_simulator.py) — The Markov transition automaton that successfully generates a synthetic 37,000-word corpus matching the statistical profile of Beinecke MS 408 to within **0.15 bits**.
 *   [`significance_tests.py`](significance_tests.py) — Bootstrap/permutation tests for entropy, distance peaks, and lag peaks under shuffled null models.
-*   [`cross_validate_markov.py`](cross_validate_markov.py) — Hold-out folio cross-validation scaffold comparing bigram vs unigram predictive fit.
+*   [`cross_validate_markov.py`](cross_validate_markov.py) — Repeated hold-out folio cross-validation comparing bigram vs unigram predictive fit with interval summaries.
+*   [`baseline_benchmark.py`](baseline_benchmark.py) — Comparative metric panel runner for external medieval/pseudo-script control corpora.
 *   [`synthetic_voynich_manuscript.txt`](synthetic_voynich_manuscript.txt) — High-fidelity synthetic mockup manuscript generated using our physical template parameters.
 *   [`comparison_audit.md`](comparison_audit.md) — Side-by-side line visual alignment and quantitative benchmark comparison.
 *   [`voynich_scientific_proof.md`](voynich_scientific_proof.md) — Quantitative Markov-style model analysis focused on entropy and line effects.
