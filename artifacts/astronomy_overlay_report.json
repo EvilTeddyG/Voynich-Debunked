@@ -1,0 +1,311 @@
+{
+  "status": "hypothesis_scaffold",
+  "input": {
+    "folio_json": "data/astronomy/folio_geometry_template.json",
+    "candidate_csv": "data/astronomy/eclipse_candidates_template.csv",
+    "date_window": [
+      1404,
+      1438
+    ],
+    "null_samples": 5000,
+    "seed": 42
+  },
+  "best_candidate": {
+    "event_id": "ecl_1433_06_17",
+    "date": "1433-06-17",
+    "year": 1433,
+    "score": 0.07588394335721854,
+    "rank": 1,
+    "details": {
+      "per_folio": [
+        {
+          "folio": "f67r",
+          "distance": 0.0,
+          "feature_abs_delta": {
+            "spoke_count": 0.0,
+            "ring_count": 0.0,
+            "zodiac_divisions": 0.0,
+            "occlusion_phase": 0.0,
+            "calibration_density": 0.0
+          }
+        },
+        {
+          "folio": "f67v",
+          "distance": 0.10705138952858106,
+          "feature_abs_delta": {
+            "spoke_count": 0.0,
+            "ring_count": 0.0,
+            "zodiac_divisions": 0.0,
+            "occlusion_phase": 0.08000000000000002,
+            "calibration_density": 0.04999999999999993
+          }
+        },
+        {
+          "folio": "f68r",
+          "distance": 0.1851845925916444,
+          "feature_abs_delta": {
+            "spoke_count": 0.0,
+            "ring_count": 0.16666666666666666,
+            "zodiac_divisions": 0.0,
+            "occlusion_phase": 0.020000000000000018,
+            "calibration_density": 0.020000000000000018
+          }
+        }
+      ],
+      "mean_distance": 0.09741199404007515,
+      "visibility_modifier": 0.779
+    }
+  },
+  "candidate_ranking_top5": [
+    {
+      "event_id": "ecl_1433_06_17",
+      "date": "1433-06-17",
+      "year": 1433,
+      "event_type": "total_solar",
+      "score": 0.07588394335721854,
+      "mean_distance": 0.09741199404007515,
+      "visibility_modifier": 0.779,
+      "details": {
+        "per_folio": [
+          {
+            "folio": "f67r",
+            "distance": 0.0,
+            "feature_abs_delta": {
+              "spoke_count": 0.0,
+              "ring_count": 0.0,
+              "zodiac_divisions": 0.0,
+              "occlusion_phase": 0.0,
+              "calibration_density": 0.0
+            }
+          },
+          {
+            "folio": "f67v",
+            "distance": 0.10705138952858106,
+            "feature_abs_delta": {
+              "spoke_count": 0.0,
+              "ring_count": 0.0,
+              "zodiac_divisions": 0.0,
+              "occlusion_phase": 0.08000000000000002,
+              "calibration_density": 0.04999999999999993
+            }
+          },
+          {
+            "folio": "f68r",
+            "distance": 0.1851845925916444,
+            "feature_abs_delta": {
+              "spoke_count": 0.0,
+              "ring_count": 0.16666666666666666,
+              "zodiac_divisions": 0.0,
+              "occlusion_phase": 0.020000000000000018,
+              "calibration_density": 0.020000000000000018
+            }
+          }
+        ],
+        "mean_distance": 0.09741199404007515,
+        "visibility_modifier": 0.779
+      }
+    },
+    {
+      "event_id": "ecl_1436_09_04",
+      "date": "1436-09-04",
+      "year": 1436,
+      "event_type": "solar_partial",
+      "score": 0.07994972384072115,
+      "mean_distance": 0.09894767802069449,
+      "visibility_modifier": 0.808,
+      "details": {
+        "per_folio": [
+          {
+            "folio": "f67r",
+            "distance": 0.0814861951498534,
+            "feature_abs_delta": {
+              "spoke_count": 0.0,
+              "ring_count": 0.0,
+              "zodiac_divisions": 0.0,
+              "occlusion_phase": 0.06,
+              "calibration_density": 0.039999999999999925
+            }
+          },
+          {
+            "folio": "f67v",
+            "distance": 0.02569046515733028,
+            "feature_abs_delta": {
+              "spoke_count": 0.0,
+              "ring_count": 0.0,
+              "zodiac_divisions": 0.0,
+              "occlusion_phase": 0.020000000000000018,
+              "calibration_density": 0.010000000000000009
+            }
+          },
+          {
+            "folio": "f68r",
+            "distance": 0.18966637375489975,
+            "feature_abs_delta": {
+              "spoke_count": 0.0,
+              "ring_count": 0.16666666666666666,
+              "zodiac_divisions": 0.0,
+              "occlusion_phase": 0.03999999999999998,
+              "calibration_density": 0.019999999999999907
+            }
+          }
+        ],
+        "mean_distance": 0.09894767802069449,
+        "visibility_modifier": 0.808
+      }
+    },
+    {
+      "event_id": "ecl_1428_11_26",
+      "date": "1428-11-26",
+      "year": 1428,
+      "event_type": "solar_partial",
+      "score": 0.11581820431585517,
+      "mean_distance": 0.14124171258031118,
+      "visibility_modifier": 0.8200000000000001,
+      "details": {
+        "per_folio": [
+          {
+            "folio": "f67r",
+            "distance": 0.1541427909439815,
+            "feature_abs_delta": {
+              "spoke_count": 0.0,
+              "ring_count": 0.0,
+              "zodiac_divisions": 0.0,
+              "occlusion_phase": 0.12,
+              "calibration_density": 0.05999999999999994
+            }
+          },
+          {
+            "folio": "f67v",
+            "distance": 0.04837354648979127,
+            "feature_abs_delta": {
+              "spoke_count": 0.0,
+              "ring_count": 0.0,
+              "zodiac_divisions": 0.0,
+              "occlusion_phase": 0.03999999999999998,
+              "calibration_density": 0.010000000000000009
+            }
+          },
+          {
+            "folio": "f68r",
+            "distance": 0.22120880030716072,
+            "feature_abs_delta": {
+              "spoke_count": 0.0,
+              "ring_count": 0.16666666666666666,
+              "zodiac_divisions": 0.0,
+              "occlusion_phase": 0.09999999999999998,
+              "calibration_density": 0.039999999999999925
+            }
+          }
+        ],
+        "mean_distance": 0.14124171258031118,
+        "visibility_modifier": 0.8200000000000001
+      }
+    },
+    {
+      "event_id": "ecl_1415_03_07",
+      "date": "1415-03-07",
+      "year": 1415,
+      "event_type": "solar_partial",
+      "score": 0.2589672867835186,
+      "mean_distance": 0.30341802786586836,
+      "visibility_modifier": 0.8534999999999999,
+      "details": {
+        "per_folio": [
+          {
+            "folio": "f67r",
+            "distance": 0.28508478271092147,
+            "feature_abs_delta": {
+              "spoke_count": 0.0,
+              "ring_count": 0.16666666666666666,
+              "zodiac_divisions": 0.0,
+              "occlusion_phase": 0.15999999999999998,
+              "calibration_density": 0.10999999999999999
+            }
+          },
+          {
+            "folio": "f67v",
+            "distance": 0.21422729362369614,
+            "feature_abs_delta": {
+              "spoke_count": 0.0,
+              "ring_count": 0.16666666666666666,
+              "zodiac_divisions": 0.0,
+              "occlusion_phase": 0.07999999999999996,
+              "calibration_density": 0.06000000000000005
+            }
+          },
+          {
+            "folio": "f68r",
+            "distance": 0.4109420072629875,
+            "feature_abs_delta": {
+              "spoke_count": 0.0,
+              "ring_count": 0.3333333333333333,
+              "zodiac_divisions": 0.0,
+              "occlusion_phase": 0.13999999999999996,
+              "calibration_density": 0.08999999999999997
+            }
+          }
+        ],
+        "mean_distance": 0.30341802786586836,
+        "visibility_modifier": 0.8534999999999999
+      }
+    },
+    {
+      "event_id": "ecl_1409_12_22",
+      "date": "1409-12-22",
+      "year": 1409,
+      "event_type": "solar_partial",
+      "score": 0.2818896199116051,
+      "mean_distance": 0.3256956902502659,
+      "visibility_modifier": 0.8654999999999999,
+      "details": {
+        "per_folio": [
+          {
+            "folio": "f67r",
+            "distance": 0.31348577851847337,
+            "feature_abs_delta": {
+              "spoke_count": 0.0,
+              "ring_count": 0.16666666666666666,
+              "zodiac_divisions": 0.0,
+              "occlusion_phase": 0.19,
+              "calibration_density": 0.12
+            }
+          },
+          {
+            "folio": "f67v",
+            "distance": 0.23489004519845733,
+            "feature_abs_delta": {
+              "spoke_count": 0.0,
+              "ring_count": 0.16666666666666666,
+              "zodiac_divisions": 0.0,
+              "occlusion_phase": 0.10999999999999999,
+              "calibration_density": 0.07000000000000006
+            }
+          },
+          {
+            "folio": "f68r",
+            "distance": 0.428711247033867,
+            "feature_abs_delta": {
+              "spoke_count": 0.0,
+              "ring_count": 0.3333333333333333,
+              "zodiac_divisions": 0.0,
+              "occlusion_phase": 0.16999999999999998,
+              "calibration_density": 0.09999999999999998
+            }
+          }
+        ],
+        "mean_distance": 0.3256956902502659,
+        "visibility_modifier": 0.8654999999999999
+      }
+    }
+  ],
+  "null_calibration": {
+    "null_mean": 0.501591289046313,
+    "null_sd": 0.11438543603718186,
+    "null_q025": 0.2663816398729979,
+    "null_q975": 0.7197441017942526,
+    "p_value_le": 0.0001999600079984003,
+    "z_score": -3.721691855514849,
+    "interpretation": "Lower score is better fit; p_value_le is rarity under null random geometry."
+  },
+  "warning": "This report is only as valid as feature extraction quality; template values are placeholders until replaced with measured folio geometry."
+}

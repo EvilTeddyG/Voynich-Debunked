@@ -115,6 +115,10 @@ python plot_section_spectra.py --csv artifacts/section_lag_spectrum_compare.csv 
 python preprocessing_sensitivity.py --input data/takahashi_eva.txt --target-lags 5 6 12 13 --max-char-lag 60 --permutations 300 --csv-out artifacts/preprocessing_sensitivity.csv --json-out artifacts/preprocessing_sensitivity.json
 python plot_preprocessing_sensitivity.py --csv artifacts/preprocessing_sensitivity.csv --out artifacts/plots/preprocessing_sensitivity_heatmap.png
 
+# Astronomy anchor-truth geometric quantification scaffold
+python astronomical_geometry_score.py --folio-json data/astronomy/folio_geometry_template.json --candidate-csv data/astronomy/eclipse_candidates_template.csv --date-window-start 1404 --date-window-end 1438 --null-samples 5000 --csv-out artifacts/astronomy_candidate_scores.csv --json-out artifacts/astronomy_overlay_report.json
+python plot_astronomy_geometry.py --csv artifacts/astronomy_candidate_scores.csv --json artifacts/astronomy_overlay_report.json --out artifacts/plots/astronomy_overlay_panels.png
+
 # Reviewer-facing snapshot of this full output terrain (including ambiguity/failure zones)
 # see: periodicity_empirical_results.md
 ```
@@ -193,6 +197,11 @@ lake build
 *   [`plot_section_spectra.py`](plot_section_spectra.py) — Grid visualization of section-level spectra with null envelopes and target-lag markers.
 *   [`preprocessing_sensitivity.py`](preprocessing_sensitivity.py) — Variant matrix quantifying target-lag drift across tokenization/normalization assumptions.
 *   [`plot_preprocessing_sensitivity.py`](plot_preprocessing_sensitivity.py) — Heatmap visualization of preprocessing sensitivity for z-scores and p-values.
+*   [`astronomical_geometry_score.py`](astronomical_geometry_score.py) — Geometric matching scaffold for folio astronomy features vs candidate eclipse/event templates with null rarity calibration.
+*   [`plot_astronomy_geometry.py`](plot_astronomy_geometry.py) — Ranking and null-band diagnostics for astronomy geometry matching outputs.
+*   [`data/astronomy/folio_geometry_template.json`](data/astronomy/folio_geometry_template.json) — Template folio geometry extraction schema for astronomical panels.
+*   [`data/astronomy/eclipse_candidates_template.csv`](data/astronomy/eclipse_candidates_template.csv) — Template candidate event feature table in the vellum-date window.
+*   [`astronomy_geometry_results.md`](astronomy_geometry_results.md) — Current scaffold output for astronomy-geometry matching with strict non-proof caveats.
 *   [`periodicity_empirical_results.md`](periodicity_empirical_results.md) — Current empirical periodicity output snapshot with explicit ambiguity, secondary peaks, and weak-zone reporting.
 *   [`data/baselines/manifest_template.csv`](data/baselines/manifest_template.csv) — Template manifest for comparison corpora grouped by historical control family.
 *   [`synthetic_voynich_manuscript.txt`](synthetic_voynich_manuscript.txt) — High-fidelity synthetic mockup manuscript generated using our physical template parameters.

@@ -1,0 +1,38 @@
+{
+  "metadata": {
+    "description": "Template geometry features extracted from astronomical folios. Replace with measured values.",
+    "units": {
+      "occlusion_phase": "fraction in [0,1]",
+      "ring_spacing_cv": "coefficient of variation"
+    }
+  },
+  "folios": [
+    {
+      "folio": "f67r",
+      "spoke_count": 12,
+      "ring_count": 4,
+      "zodiac_divisions": 12,
+      "ring_spacing_cv": 0.08,
+      "occlusion_phase": 0.50,
+      "calibration_density": 0.72
+    },
+    {
+      "folio": "f67v",
+      "spoke_count": 12,
+      "ring_count": 4,
+      "zodiac_divisions": 12,
+      "ring_spacing_cv": 0.10,
+      "occlusion_phase": 0.42,
+      "calibration_density": 0.67
+    },
+    {
+      "folio": "f68r",
+      "spoke_count": 12,
+      "ring_count": 5,
+      "zodiac_divisions": 12,
+      "ring_spacing_cv": 0.09,
+      "occlusion_phase": 0.48,
+      "calibration_density": 0.70
+    }
+  ]
+}
