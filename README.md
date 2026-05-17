@@ -201,6 +201,7 @@ lake build
 *   [`voynich_stencil_proof.md`](voynich_stencil_proof.md) — Spatial periodicity analysis for the grille-model interpretation.
 *   [`voynich_historical_precedents.md`](voynich_historical_precedents.md) — The historical grounding paper detailing early 15th-century scriptorium *patrons*.
 *   [`voynich_historical_references.md`](voynich_historical_references.md) — Corroborating historical evidence: documented patron use in the Veneto, Renaissance hoax manuscript sales (Rudolf II, Müller/Kircher), and the Giovanni Fontana network as the strongest production-environment correlate.
+*   [`voynich_anchor_truth_hypothesis.md`](voynich_anchor_truth_hypothesis.md) — Hypothesis note on using verifiable astronomical structure as an authenticity anchor around potentially low-information text.
 *   [`CITATIONS.md`](CITATIONS.md) — Master bibliography: all primary sources, transcript data, information-theory foundations, cryptanalytic scholarship, historical provenance, codicological context, and the formal proof toolchain. Includes a full BibTeX block.
 
 ---
