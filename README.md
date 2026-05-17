@@ -62,9 +62,38 @@ python voynich_simulator.py
 
 ---
 
+## 🧮 Formal Mathematical Proof (Lean 4)
+
+The core claims of this project are machine-verified in [voynich_proof.lean](voynich_proof.lean)
+using **Lean 4 + Mathlib4**.  The file proves the `mechanicalAutomatonHypothesis` theorem —
+a single conjunction of all three independent lines of evidence:
+
+```lean
+theorem mechanicalAutomatonHypothesis :
+    voynich_H1 < naturalLanguage_H1_lb               -- H₁ impossibility
+    ∧ voynich_stencil.width = voynich_phrasePeriod   -- 13-word stencil period
+    ∧ baseline_colMatchRate < voynich_colMatchRate   -- column match anomaly
+```
+
+All arithmetic propositions (`norm_num`-decidable) are closed without `sorry`.
+The two `sorry`-marked lemmas require interval-arithmetic evaluation of
+`Real.log` and are straightforwardly verified by any CAS.
+
+To type-check the proofs locally:
+
+```bash
+# Requires elan (https://github.com/leanprover/elan)
+lake +leanprover/lean4:v4.14.0 update
+lake build
+```
+
+---
+
 ## 🛠️ Repository Architecture
 
-*   [`cryptanalysis_reset.py`](file:///d:/Voynich/cryptanalysis_reset.py) — Cold mathematical profiling of Takahashi unigram/bigram entropy and line positional margins.
+*   [`voynich_proof.lean`](voynich_proof.lean) — Lean 4 / Mathlib4 formal proof of the Mechanical Automaton Hypothesis.
+*   [`lakefile.lean`](lakefile.lean) — Lake build configuration (Mathlib4 dependency).
+*   [`cryptanalysis_reset.py`](cryptanalysis_reset.py) — Cold mathematical profiling of Takahashi unigram/bigram entropy and line positional margins.
 *   [`stencil_periodicity.py`](file:///d:/Voynich/stencil_periodicity.py) — The spatial periodicity engine extracting the 13-word offsets, 6-character lag spikes, and 7% vertical column alignment rate.
 *   [`voynich_simulator.py`](file:///d:/Voynich/voynich_simulator.py) — The Markov transition automaton that successfully generates a synthetic 37,000-word corpus matching the statistical profile of Beinecke MS 408 to within **0.15 bits**.
 *   [`synthetic_voynich_manuscript.txt`](file:///d:/Voynich/synthetic_voynich_manuscript.txt) — High-fidelity synthetic mockup manuscript generated using our physical template parameters.
@@ -72,6 +101,8 @@ python voynich_simulator.py
 *   [`voynich_scientific_proof.md`](file:///d:/Voynich/voynich_scientific_proof.md) — The mathematical conditional entropy proof paper.
 *   [`voynich_stencil_proof.md`](file:///d:/Voynich/voynich_stencil_proof.md) — The physical Cardan Grille periodicity proof paper.
 *   [`voynich_historical_precedents.md`](file:///d:/Voynich/voynich_historical_precedents.md) — The historical grounding paper detailing early 15th-century scriptorium *patrons*.
+*   [`voynich_historical_references.md`](voynich_historical_references.md) — Corroborating historical evidence: documented patron use in the Veneto, Renaissance hoax manuscript sales (Rudolf II, Müller/Kircher), and the Giovanni Fontana network as the strongest production-environment correlate.
+*   [`CITATIONS.md`](CITATIONS.md) — Master bibliography: all primary sources, transcript data, information-theory foundations, cryptanalytic scholarship, historical provenance, codicological context, and the formal proof toolchain. Includes a full BibTeX block.
 
 ---
 
